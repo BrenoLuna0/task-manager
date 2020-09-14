@@ -10,16 +10,22 @@ import FormButton from "../../components/FormButton";
 import ItemDetail from "../../components/ItemDetail";
 
 function Home() {
+  // Items List
   const [listOne, setListOne] = useState([]);
   const [listTwo, setListTwo] = useState([]);
   const [listThree, setListThree] = useState([]);
   const [listFour, setListFour] = useState([]);
+
+  // Modal State, it can be "hide" or "display" to hide or show especific modal
   const [popUpOne, setPopUpOne] = useState("hide");
   const [popUpTwo, setPopUpTwo] = useState("hide");
   const [popUpThree, setPopUpThree] = useState("hide");
   const [popUpFour, setPopUpFour] = useState("hide");
+
+  // Item that will be showed in modal
   const [itemToShow, setItemToShow] = useState({});
 
+  // Object to convert the list ID to list name
   const id2List = {
     droppable: "listOne",
     droppable2: "listTwo",
@@ -27,6 +33,7 @@ function Home() {
     droppable4: "listFour",
   };
 
+  // Get list name on especific ID
   const getList = (id) => {
     const obj = {
       listOne,
@@ -37,7 +44,7 @@ function Home() {
     return obj[id2List[id]];
   };
 
-  // Show the clicked card information
+  // Show the clicked card information modal
   const popUp = (popUp, item) => {
     const keyActions = {
       1: () => {
@@ -60,7 +67,7 @@ function Home() {
     keyActions[popUp]();
   };
 
-  // Close all card detail screen
+  // Close all card detail modal
   const popDown = () => {
     setPopUpOne("hide");
     setPopUpTwo("hide");

@@ -37,6 +37,7 @@ export default function Component({ addItem, close }) {
             cancel
             text="Descartar"
             onClickCancel={() => {
+              setTitle("");
               setDescription("");
               setDate("");
               close();
