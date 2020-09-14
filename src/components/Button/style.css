@@ -1,0 +1,29 @@
+div.button-cancel {
+  text-align: center;
+  font-family: "Roboto", sans-serif;
+  font-size: 13px;
+  color: #007bff;
+  background-color: #ffffff;
+  border: 1px solid #007bff;
+  border-radius: 5px;
+  width: 100%;
+  height: 100%;
+  padding-top: 10px;
+}
+
+div.button-confirm {
+  text-align: center;
+  font-family: "Roboto", sans-serif;
+  color: #ffffff;
+  font-size: 13px;
+  background-color: #007bff;
+  border-radius: 5px;
+  width: 100%;
+  height: 100%;
+  padding-top: 10px;
+}
+
+div.button-confirm,
+div.button-cancel:hover {
+  cursor: pointer;
+}

@@ -1,0 +1,55 @@
+div.bodyContent {
+  display: grid;
+  grid-template-columns: 3fr 3fr 3fr 3fr;
+  grid-column-gap: 15px;
+  margin-left: 5%;
+  margin-right: 5%;
+  width: 90%;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+}
+
+div.planned {
+  background-color: #dceaf9;
+  margin-top: 50px;
+  overflow: scroll;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+div.running {
+  background-color: #fbd2c3;
+  margin-top: 50px;
+  overflow: scroll;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+div.deadlock {
+  background-color: #f8d5d5;
+  margin-top: 50px;
+  overflow: scroll;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+div.finished {
+  background-color: #b8f2c5;
+  margin-top: 50px;
+  overflow: scroll;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+::-webkit-scrollbar {
+  width: 2px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #dbdbdb;
+}

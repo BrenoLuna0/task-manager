@@ -1,0 +1,104 @@
+div.pop-up-display {
+  display: block;
+}
+
+div.pop-up-hide {
+  display: none;
+}
+
+div.black-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #161616;
+  opacity: 0.7;
+  z-index: 1;
+}
+
+div.card-detail-blue {
+  position: fixed;
+  top: 20%;
+  left: 30%;
+  right: 30%;
+  bottom: 20%;
+  border-radius: 7px;
+  background-color: #dceaf9;
+  z-index: 2;
+}
+
+div.card-detail-brown {
+  position: fixed;
+  top: 20%;
+  left: 30%;
+  right: 30%;
+  bottom: 20%;
+  border-radius: 7px;
+  background-color: #fbd2c3;
+  z-index: 2;
+}
+
+div.card-detail-red {
+  position: fixed;
+  top: 20%;
+  left: 30%;
+  right: 30%;
+  bottom: 20%;
+  border-radius: 7px;
+  background-color: #f8d5d5;
+  z-index: 2;
+}
+
+div.card-detail-green {
+  position: fixed;
+  top: 20%;
+  left: 30%;
+  right: 30%;
+  bottom: 20%;
+  border-radius: 7px;
+  background-color: #b8f2c5;
+  z-index: 2;
+}
+div.pop-up-close {
+  margin-top: 5px;
+  margin-left: 94%;
+}
+
+div.pop-up-close:hover {
+  cursor: pointer;
+}
+
+div.pop-up-title {
+  width: 80%;
+  height: 20px;
+  border-radius: 7px;
+  margin-left: 8%;
+  margin-top: 10px;
+  background-color: #d2d2d2;
+  font-family: "Roboto", sans-serif;
+  font-weight: bold;
+  padding: 10px;
+}
+
+div.pop-up-description {
+  width: 80%;
+  height: 150px;
+  border-radius: 7px;
+  margin-left: 8%;
+  margin-top: 10px;
+  background-color: #d2d2d2;
+  font-family: "Roboto", sans-serif;
+  padding: 10px;
+}
+
+div.pop-up-date {
+  width: 30%;
+  height: 20px;
+  border-radius: 7px;
+  margin-left: 8%;
+  margin-top: 10px;
+  background-color: #d2d2d2;
+  font-family: "Roboto", sans-serif;
+  padding: 10px;
+}

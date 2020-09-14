@@ -1,18 +1,24 @@
 import React, { useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import {
-  getItems,
-  getItemStyle,
-  move,
-  getListStyle,
-  reorder,
-} from "../../utils/dndFunctions";
+import { move, reorder } from "../../utils/dndFunctions";
+import "./style.css";
+
+import Card from "../../components/Card";
+import ColumnTitle from "../../components/ColumnTitle";
+import Header from "../../components/Header";
+import FormButton from "../../components/FormButton";
+import ItemDetail from "../../components/ItemDetail";
 
 function Home() {
-  const [listOne, setListOne] = useState(getItems(10));
-  const [listTwo, setListTwo] = useState(getItems(5, 10));
-  const [listThree, setListThree] = useState(getItems(5, 15));
-  const [listFour, setListFour] = useState(getItems(5, 20));
+  const [listOne, setListOne] = useState([]);
+  const [listTwo, setListTwo] = useState([]);
+  const [listThree, setListThree] = useState([]);
+  const [listFour, setListFour] = useState([]);
+  const [popUpOne, setPopUpOne] = useState("hide");
+  const [popUpTwo, setPopUpTwo] = useState("hide");
+  const [popUpThree, setPopUpThree] = useState("hide");
+  const [popUpFour, setPopUpFour] = useState("hide");
+  const [itemToShow, setItemToShow] = useState({});
 
   const id2List = {
     droppable: "listOne",
@@ -29,6 +35,79 @@ function Home() {
       listFour,
     };
     return obj[id2List[id]];
+  };
+
+  const popUp = (popUp, item) => {
+    const keyActions = {
+      1: () => {
+        setItemToShow(item);
+        setPopUpOne("display");
+      },
+      2: () => {
+        setItemToShow(item);
+        setPopUpTwo("display");
+      },
+      3: () => {
+        setItemToShow(item);
+        setPopUpThree("display");
+      },
+      4: () => {
+        setItemToShow(item);
+        setPopUpFour("display");
+      },
+    };
+    keyActions[popUp]();
+  };
+
+  const popDown = () => {
+    setPopUpOne("hide");
+    setPopUpTwo("hide");
+    setPopUpThree("hide");
+    setPopUpFour("hide");
+  };
+
+  const addListOne = (item) => {
+    const copy = listOne.map((item) => item);
+    copy.unshift(item);
+    setListOne(copy);
+  };
+
+  const addListTwo = (item) => {
+    const copy = listTwo.map((item) => item);
+    copy.unshift(item);
+    setListTwo(copy);
+  };
+
+  const addListThree = (item) => {
+    const copy = listThree.map((item) => item);
+    copy.unshift(item);
+    setListThree(copy);
+  };
+
+  const addListFour = (item) => {
+    const copy = listFour.map((item) => item);
+    copy.unshift(item);
+    setListFour(copy);
+  };
+
+  const removeListOne = (item) => {
+    const copy = listOne.filter((i) => item !== i);
+    setListOne(copy);
+  };
+
+  const removeListTwo = (item) => {
+    const copy = listTwo.filter((i) => item !== i);
+    setListTwo(copy);
+  };
+
+  const removeListThree = (item) => {
+    const copy = listThree.filter((i) => item !== i);
+    setListThree(copy);
+  };
+
+  const removeListFour = (item) => {
+    const copy = listFour.filter((i) => item !== i);
+    setListFour(copy);
   };
 
   const onDragEnd = (result) => {
@@ -77,116 +156,181 @@ function Home() {
   };
 
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
-      <Droppable droppableId="droppable">
-        {(provided, snapshot) => (
-          <div
-            ref={provided.innerRef}
-            style={getListStyle(snapshot.isDraggingOver)}
-          >
-            {listOne.map((item, index) => (
-              <Draggable key={item.id} draggableId={item.id} index={index}>
-                {(provided, snapshot) => (
-                  <div
-                    ref={provided.innerRef}
-                    {...provided.draggableProps}
-                    {...provided.dragHandleProps}
-                    style={getItemStyle(
-                      snapshot.isDragging,
-                      provided.draggableProps.style
+    <>
+      <Header />
+      <div className="bodyContent">
+        <DragDropContext onDragEnd={onDragEnd}>
+          <Droppable droppableId="droppable">
+            {(provided, snapshot) => (
+              <div ref={provided.innerRef} className="planned">
+                <ItemDetail
+                  color="blue"
+                  visible={popUpOne}
+                  title={itemToShow.title}
+                  description={itemToShow.description}
+                  date={itemToShow.date}
+                  closeModal={() => {
+                    popDown();
+                  }}
+                />
+                <ColumnTitle title="Planejado" color="blue" />
+                <FormButton
+                  color="blue"
+                  addItem={(item) => {
+                    addListOne(item);
+                  }}
+                />
+                {listOne.map((item, index) => (
+                  <Draggable key={item.id} draggableId={item.id} index={index}>
+                    {(provided, snapshot) => (
+                      <Card
+                        provided={provided}
+                        snapshot={snapshot}
+                        value={item.title}
+                        item={item}
+                        removeItem={(item) => {
+                          removeListOne(item);
+                        }}
+                        openModal={() => {
+                          popUp(1, item);
+                        }}
+                      />
                     )}
-                  >
-                    {item.content}
-                  </div>
-                )}
-              </Draggable>
-            ))}
-            {provided.placeholder}
-          </div>
-        )}
-      </Droppable>
-      <Droppable droppableId="droppable2">
-        {(provided, snapshot) => (
-          <div
-            ref={provided.innerRef}
-            style={getListStyle(snapshot.isDraggingOver)}
-          >
-            {listTwo.map((item, index) => (
-              <Draggable key={item.id} draggableId={item.id} index={index}>
-                {(provided, snapshot) => (
-                  <div
-                    ref={provided.innerRef}
-                    {...provided.draggableProps}
-                    {...provided.dragHandleProps}
-                    style={getItemStyle(
-                      snapshot.isDragging,
-                      provided.draggableProps.style
+                  </Draggable>
+                ))}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+          <Droppable droppableId="droppable2">
+            {(provided, snapshot) => (
+              <div ref={provided.innerRef} className="running">
+                <ItemDetail
+                  color="brown"
+                  visible={popUpTwo}
+                  title={itemToShow.title}
+                  description={itemToShow.description}
+                  date={itemToShow.date}
+                  closeModal={() => {
+                    popDown();
+                  }}
+                />
+                <ColumnTitle title="Executando" color="brown" />
+                <FormButton
+                  color="brown"
+                  addItem={(item) => {
+                    addListTwo(item);
+                  }}
+                />
+                {listTwo.map((item, index) => (
+                  <Draggable key={item.id} draggableId={item.id} index={index}>
+                    {(provided, snapshot) => (
+                      <Card
+                        provided={provided}
+                        snapshot={snapshot}
+                        value={item.title}
+                        item={item}
+                        removeItem={(item) => {
+                          removeListTwo(item);
+                        }}
+                        openModal={() => {
+                          popUp(2, item);
+                        }}
+                      />
                     )}
-                  >
-                    {item.content}
-                  </div>
-                )}
-              </Draggable>
-            ))}
-            {provided.placeholder}
-          </div>
-        )}
-      </Droppable>
-      <Droppable droppableId="droppable3">
-        {(provided, snapshot) => (
-          <div
-            ref={provided.innerRef}
-            style={getListStyle(snapshot.isDraggingOver)}
-          >
-            {listThree.map((item, index) => (
-              <Draggable key={item.id} draggableId={item.id} index={index}>
-                {(provided, snapshot) => (
-                  <div
-                    ref={provided.innerRef}
-                    {...provided.draggableProps}
-                    {...provided.dragHandleProps}
-                    style={getItemStyle(
-                      snapshot.isDragging,
-                      provided.draggableProps.style
+                  </Draggable>
+                ))}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+          <Droppable droppableId="droppable3">
+            {(provided, snapshot) => (
+              <div ref={provided.innerRef} className="deadlock">
+                <ItemDetail
+                  color="red"
+                  visible={popUpThree}
+                  title={itemToShow.title}
+                  description={itemToShow.description}
+                  date={itemToShow.date}
+                  closeModal={() => {
+                    popDown();
+                  }}
+                />
+                <ColumnTitle title="Impasse" color="red" />
+                <FormButton
+                  color="red"
+                  addItem={(item) => {
+                    addListThree(item);
+                  }}
+                />
+                {listThree.map((item, index) => (
+                  <Draggable key={item.id} draggableId={item.id} index={index}>
+                    {(provided, snapshot) => (
+                      <Card
+                        provided={provided}
+                        snapshot={snapshot}
+                        value={item.title}
+                        item={item}
+                        removeItem={(item) => {
+                          removeListThree(item);
+                        }}
+                        openModal={() => {
+                          popUp(3, item);
+                        }}
+                      />
                     )}
-                  >
-                    {item.content}
-                  </div>
-                )}
-              </Draggable>
-            ))}
-            {provided.placeholder}
-          </div>
-        )}
-      </Droppable>
-      <Droppable droppableId="droppable4">
-        {(provided, snapshot) => (
-          <div
-            ref={provided.innerRef}
-            style={getListStyle(snapshot.isDraggingOver)}
-          >
-            {listFour.map((item, index) => (
-              <Draggable key={item.id} draggableId={item.id} index={index}>
-                {(provided, snapshot) => (
-                  <div
-                    ref={provided.innerRef}
-                    {...provided.draggableProps}
-                    {...provided.dragHandleProps}
-                    style={getItemStyle(
-                      snapshot.isDragging,
-                      provided.draggableProps.style
+                  </Draggable>
+                ))}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+          <Droppable droppableId="droppable4">
+            {(provided, snapshot) => (
+              <div ref={provided.innerRef} className="finished">
+                <ItemDetail
+                  color="green"
+                  visible={popUpFour}
+                  title={itemToShow.title}
+                  description={itemToShow.description}
+                  date={itemToShow.date}
+                  closeModal={() => {
+                    popDown();
+                  }}
+                />
+                <ColumnTitle title="Finalizado" color="green" />
+                <FormButton
+                  color="green"
+                  addItem={(item) => {
+                    addListFour(item);
+                  }}
+                />
+                {listFour.map((item, index) => (
+                  <Draggable key={item.id} draggableId={item.id} index={index}>
+                    {(provided, snapshot) => (
+                      <Card
+                        provided={provided}
+                        snapshot={snapshot}
+                        value={item.title}
+                        item={item}
+                        removeItem={(item) => {
+                          removeListFour(item);
+                        }}
+                        openModal={() => {
+                          popUp(4, item);
+                        }}
+                      />
                     )}
-                  >
-                    {item.content}
-                  </div>
-                )}
-              </Draggable>
-            ))}
-            {provided.placeholder}
-          </div>
-        )}
-      </Droppable>
-    </DragDropContext>
+                  </Draggable>
+                ))}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
+      </div>
+    </>
   );
 }
 

@@ -9,7 +9,10 @@
     "react": "^16.13.1",
     "react-beautiful-dnd": "^13.0.0",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.3"
+    "react-icons": "^3.11.0",
+    "react-input-mask": "^2.0.4",
+    "react-scripts": "3.4.3",
+    "uniqid": "^5.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
