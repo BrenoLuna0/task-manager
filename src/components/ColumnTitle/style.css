@@ -1,7 +1,7 @@
 div.title-blue {
   margin-top: 0px;
   margin-bottom: 20px;
-  width: 93%;
+  width: 100%;
   height: 40px;
   background-color: #007bff;
   border-top-left-radius: 10px;
@@ -15,7 +15,7 @@ div.title-blue {
 div.title-brown {
   margin-top: 0px;
   margin-bottom: 20px;
-  width: 93%;
+  width: 100%;
   height: 40px;
   background-color: #d95a2b;
   border-top-left-radius: 10px;
@@ -29,7 +29,7 @@ div.title-brown {
 div.title-red {
   margin-top: 0px;
   margin-bottom: 20px;
-  width: 93%;
+  width: 100%;
   height: 40px;
   background-color: #dc3545;
   border-top-left-radius: 10px;
@@ -43,7 +43,7 @@ div.title-red {
 div.title-green {
   margin-top: 0px;
   margin-bottom: 20px;
-  width: 93%;
+  width: 100%;
   height: 40px;
   background-color: #28a745;
   border-top-left-radius: 10px;

@@ -37,6 +37,7 @@ function Home() {
     return obj[id2List[id]];
   };
 
+  // Show the clicked card information
   const popUp = (popUp, item) => {
     const keyActions = {
       1: () => {
@@ -59,6 +60,7 @@ function Home() {
     keyActions[popUp]();
   };
 
+  // Close all card detail screen
   const popDown = () => {
     setPopUpOne("hide");
     setPopUpTwo("hide");
@@ -66,50 +68,59 @@ function Home() {
     setPopUpFour("hide");
   };
 
-  const addListOne = (item) => {
-    const copy = listOne.map((item) => item);
-    copy.unshift(item);
-    setListOne(copy);
+  // Add item to list
+  const addList = (list, item) => {
+    const keyActions = {
+      1: () => {
+        const copy = listOne.map((item) => item);
+        copy.unshift(item);
+        setListOne(copy);
+      },
+      2: () => {
+        const copy = listTwo.map((item) => item);
+        copy.unshift(item);
+        setListTwo(copy);
+      },
+      3: () => {
+        const copy = listThree.map((item) => item);
+        copy.unshift(item);
+        setListThree(copy);
+      },
+      4: () => {
+        const copy = listFour.map((item) => item);
+        copy.unshift(item);
+        setListFour(copy);
+      },
+    };
+
+    keyActions[list]();
   };
 
-  const addListTwo = (item) => {
-    const copy = listTwo.map((item) => item);
-    copy.unshift(item);
-    setListTwo(copy);
+  // Remove item from list
+  const removeItem = (list, item) => {
+    const keyActions = {
+      1: () => {
+        const copy = listOne.filter((i) => item !== i);
+        setListOne(copy);
+      },
+      2: () => {
+        const copy = listTwo.filter((i) => item !== i);
+        setListTwo(copy);
+      },
+      3: () => {
+        const copy = listThree.filter((i) => item !== i);
+        setListThree(copy);
+      },
+      4: () => {
+        const copy = listFour.filter((i) => item !== i);
+        setListFour(copy);
+      },
+    };
+
+    keyActions[list]();
   };
 
-  const addListThree = (item) => {
-    const copy = listThree.map((item) => item);
-    copy.unshift(item);
-    setListThree(copy);
-  };
-
-  const addListFour = (item) => {
-    const copy = listFour.map((item) => item);
-    copy.unshift(item);
-    setListFour(copy);
-  };
-
-  const removeListOne = (item) => {
-    const copy = listOne.filter((i) => item !== i);
-    setListOne(copy);
-  };
-
-  const removeListTwo = (item) => {
-    const copy = listTwo.filter((i) => item !== i);
-    setListTwo(copy);
-  };
-
-  const removeListThree = (item) => {
-    const copy = listThree.filter((i) => item !== i);
-    setListThree(copy);
-  };
-
-  const removeListFour = (item) => {
-    const copy = listFour.filter((i) => item !== i);
-    setListFour(copy);
-  };
-
+  // Handle the result of the drag operation
   const onDragEnd = (result) => {
     const { source, destination } = result;
 
@@ -117,7 +128,7 @@ function Home() {
     if (!destination) {
       return;
     }
-
+    // dropped in the same list
     if (source.droppableId === destination.droppableId) {
       const items = reorder(
         getList(source.droppableId),
@@ -135,7 +146,9 @@ function Home() {
       };
 
       keyActions[source.droppableId]();
-    } else {
+    }
+    // dropped in another list
+    else {
       const result = move(
         getList(source.droppableId),
         getList(destination.droppableId),
@@ -177,7 +190,7 @@ function Home() {
                 <FormButton
                   color="blue"
                   addItem={(item) => {
-                    addListOne(item);
+                    addList(1, item);
                   }}
                 />
                 {listOne.map((item, index) => (
@@ -189,7 +202,7 @@ function Home() {
                         value={item.title}
                         item={item}
                         removeItem={(item) => {
-                          removeListOne(item);
+                          removeItem(1, item);
                         }}
                         openModal={() => {
                           popUp(1, item);
@@ -219,7 +232,7 @@ function Home() {
                 <FormButton
                   color="brown"
                   addItem={(item) => {
-                    addListTwo(item);
+                    addList(2, item);
                   }}
                 />
                 {listTwo.map((item, index) => (
@@ -231,7 +244,7 @@ function Home() {
                         value={item.title}
                         item={item}
                         removeItem={(item) => {
-                          removeListTwo(item);
+                          removeItem(2, item);
                         }}
                         openModal={() => {
                           popUp(2, item);
@@ -261,7 +274,7 @@ function Home() {
                 <FormButton
                   color="red"
                   addItem={(item) => {
-                    addListThree(item);
+                    addList(3, item);
                   }}
                 />
                 {listThree.map((item, index) => (
@@ -273,7 +286,7 @@ function Home() {
                         value={item.title}
                         item={item}
                         removeItem={(item) => {
-                          removeListThree(item);
+                          removeItem(3, item);
                         }}
                         openModal={() => {
                           popUp(3, item);
@@ -303,7 +316,7 @@ function Home() {
                 <FormButton
                   color="green"
                   addItem={(item) => {
-                    addListFour(item);
+                    addList(4, item);
                   }}
                 />
                 {listFour.map((item, index) => (
@@ -315,7 +328,7 @@ function Home() {
                         value={item.title}
                         item={item}
                         removeItem={(item) => {
-                          removeListFour(item);
+                          removeItem(4, item);
                         }}
                         openModal={() => {
                           popUp(4, item);
